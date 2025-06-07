@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-4">About Us</h1>
+<p class="mb-4">
+    Welcome to My Bookstore! We are passionate about books and dedicated to providing a wide selection of titles for all readers.
+</p>
+<p class="mb-4">
+    Our mission is to connect readers with the stories they love. Whether you're looking for the latest bestsellers, classic literature, or hidden gems, we have something for everyone.
+</p>
+<p class="mb-4">
+    Our team is made up of book enthusiasts who are always ready to help you find your next great read. We believe in the power of books to inspire, educate, and entertain.
+</p>
+<p class="mb-4">
+    Thank you for choosing My Bookstore. We look forward to serving you and sharing our love of books with you!
+</p>
+<p class="mb-4">
+    If you have any questions or need assistance, feel free to <a href="{% url 'contact' %}" class="text-blue-500 hover:underline">contact us</a>.
+</p>
+<p class="mb-4">
+    Follow us on social media for the latest updates and book recommendations:
+</p>
+<ul class="list-disc pl-5 mb-4">
+    <li><a href="https://twitter.com/mybookstore" class="text-blue-500 hover:underline">Twitter</a></li>
+    <li><a href="https://facebook.com/mybookstore" class="text-blue-500 hover:underline">Facebook</a></li>
+    <li><a href="https://instagram.com/mybookstore" class="text-blue-500 hover:underline">Instagram</a></li>
+</ul>
+<p class="mb-4">
+    We hope you enjoy your visit to My Bookstore and find the perfect book to add to your collection!
+</p>
+
+{% endblock %}

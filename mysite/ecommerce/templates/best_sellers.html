@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Best Sellers</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            padding: 40px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        .book-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+            text-align: center;
+        }
+        .book-card:hover {
+            transform: translateY(-4px);
+        }
+        .book-card img {
+            max-height: 200px;
+            width: auto;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .book-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .book-author {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .book-price {
+            color: #007bff;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .book-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .rank-badge {
+            position: absolute;
+            background: gold;
+            color: black;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 0 0 8px 0;
+            top: 0;
+            left: 0;
+        }
+        .card-wrapper {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Best Selling Books</h1>
+
+        {% if best_sellers %}
+            <div class="book-grid">
+                {% for book in best_sellers %}
+                    <div class="card-wrapper">
+                        <div class="rank-badge">#{{ forloop.counter }}</div>
+                        <div class="book-card">
+                            <a href="{% url 'book_detail' book.slug %}">
+                                {% if book.cover_image %}
+                                    <img src="{{ book.cover_image.url }}" alt="{{ book.title }}">
+                                {% else %}
+                                    <img src="/static/images/default_book.png" alt="No Cover">
+                                {% endif %}
+                                <div class="book-title">{{ book.title }}</div>
+                                <div class="book-author">by {{ book.author.name }}</div>
+                                <div class="book-price">${{ book.price }}</div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="text-align: center;">No best sellers available at the moment.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

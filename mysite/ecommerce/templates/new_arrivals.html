@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Arrivals</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            padding: 40px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        .book-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+            text-align: center;
+        }
+        .book-card:hover {
+            transform: translateY(-4px);
+        }
+        .book-card img {
+            max-height: 200px;
+            width: auto;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .book-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .book-author {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .book-price {
+            color: #007bff;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .book-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .new-badge {
+            background-color: #28a745;
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+        }
+        .card-wrapper {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🆕 New Arrivals</h1>
+
+        {% if new_arrivals %}
+            <div class="book-grid">
+                {% for book in new_arrivals %}
+                    <div class="card-wrapper">
+                        <div class="book-card">
+                            <a href="{% url 'book_detail' book.slug %}">
+                                {% if book.cover_image %}
+                                    <img src="{{ book.cover_image.url }}" alt="{{ book.title }}">
+                                {% else %}
+                                    <img src="/static/images/default_book.png" alt="No Cover">
+                                {% endif %}
+                                <div class="book-title">{{ book.title }}</div>
+                                <div class="book-author">by {{ book.author.name }}</div>
+                                <div class="book-price">${{ book.price }}</div>
+                            </a>
+                        </div>
+                        <div class="new-badge">New</div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="text-align: center;">No new arrivals found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authors</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f7f7f7;
+            padding: 40px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .author-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
+        }
+        .author-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        .author-card:hover {
+            transform: translateY(-4px);
+        }
+        .author-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .author-name {
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-bottom: 5px;
+        }
+        .author-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Meet the Authors</h1>
+
+        {% if authors %}
+            <div class="author-grid">
+                {% for author in authors %}
+                    <div class="author-card">
+                        <a href="{% url 'author_books' author.slug %}">
+                            {% if author.profile_image %}
+                                <img src="{{ author.profile_image.url }}" alt="{{ author.name }}">
+                            {% else %}
+                                <img src="/static/images/default_author.png" alt="No Image">
+                            {% endif %}
+                            <div class="author-name">{{ author.name }}</div>
+                            {% if author.bio %}
+                                <p style="font-size: 0.85rem; color: #666;">{{ author.bio|truncatewords:12 }}</p>
+                            {% endif %}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="text-align: center;">No authors found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
